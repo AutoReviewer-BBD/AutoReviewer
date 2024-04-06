@@ -32,7 +32,9 @@ jobs:
       uses: warrenbuckley/Setup-MSBuild@v1
     
     - name: Build
-      run: .\build.cmd -pack -ci -configuration Release -prepareMachine /p:Platform=x64
+      run: |
+        cd AutoReview
+        .\build.cmd -pack -ci -configuration Release -prepareMachine /p:Platform=x64
       
     - name: Set Version Tag
       id: version
