@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bbdnet3312\\source\\repos\\AutoReview\\AutoReview\\AutoReview.csproj",
+      "projectUniqueName": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
       "projectName": "AutoReview",
-      "projectPath": "C:\\Users\\bbdnet3312\\source\\repos\\AutoReview\\AutoReview\\AutoReview.csproj",
+      "projectPath": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
       "packagesPath": "C:\\Users\\bbdnet3312\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bbdnet3312\\source\\repos\\AutoReview\\AutoReview\\obj\\",
+      "outputPath": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bbdnet3312\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -17,9 +17,22 @@
         </Popup>
         <Button x:Name="AuthButton" Content="Auth With GitHub" HorizontalAlignment="Center" Height="34" Margin="0,58,0,0" VerticalAlignment="Top" Width="108"/>
         <TextBlock x:Name="More" HorizontalAlignment="Center" Height="18" Margin="0,92,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="292" TextAlignment="Center"/>
-        <ComboBox x:Name="RepoComboBox" HorizontalAlignment="Left" Height="26" Margin="29,0,0,0" VerticalAlignment="Center" Width="111"/>
-        <ComboBox x:Name="RepoComboBox_Copy" HorizontalAlignment="Left" Height="26" Margin="213,0,0,0" VerticalAlignment="Center" Width="111"/>
-        <ComboBox x:Name="RepoComboBox_Copy1" HorizontalAlignment="Left" Height="26" Margin="400,201,0,0" VerticalAlignment="Top" Width="111"/>
+        <ComboBox x:Name="RepoComboBox" HorizontalAlignment="Left" Height="30" Margin="125,0,0,0" VerticalAlignment="Center" Width="100"/>
+        <ComboBox x:Name="BranchesComboBox" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="100" SelectionChanged="BranchesComboBox_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <ComboBox x:Name="prTypeComboBox" HorizontalAlignment="Right" Height="30" VerticalAlignment="Center" Width="100" Margin="0,0,125,0"/>
+        <Image x:Name="pfpImage" HorizontalAlignment="Left" Height="90" Margin="175,58,0,0" VerticalAlignment="Top" Width="90"/>
+        <TextBlock x:Name="More_Copy" HorizontalAlignment="Left" Height="23" Margin="125,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextAlignment="Center"><Run Language="en-za" Text="Repo:"/></TextBlock>
+        <TextBlock x:Name="More_Copy1" HorizontalAlignment="Center" Height="23" Margin="0,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextAlignment="Center"><Run Language="en-za" Text="Branch:"/></TextBlock>
+        <TextBlock x:Name="More_Copy2" HorizontalAlignment="Left" Height="23" Margin="575,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" TextAlignment="Center"><Run Language="en-za" Text="PR Type:"/></TextBlock>
+        <ListBox HorizontalAlignment="Center" Height="87" Margin="0,272,0,0" VerticalAlignment="Top" Width="198" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <TextBlock x:Name="More_Copy3" HorizontalAlignment="Center" Height="23" Margin="0,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" TextAlignment="Center"><Run Language="en-za" Text="Branch:"/></TextBlock>
     </Grid>
 
 

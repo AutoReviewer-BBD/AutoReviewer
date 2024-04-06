@@ -24,7 +24,12 @@ namespace AutoReview
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GitHubAuther.SetAuthLink(AuthButton, More);
+            GitHubAuther.SetAuthLink(AuthButton, More, pfpImage, BranchesComboBox);
+        }
+
+        private void BranchesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GitHubAPI.PopulatePRTypeSelection(prTypeComboBox);
         }
     }
 }
