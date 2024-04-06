@@ -64,6 +64,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: frontend/beanstalkcli_1.0_amd64.deb
-        asset_name: beanstalkcli_1.0_amd64.deb
-        asset_content_type: application/vnd.debian.binary-package
+        asset_path: AutoReview\bin\Release\net8.0-windows\AutoReview.exe
+        asset_name: AutoReview.exe
+        asset_content_type: application/octet-stream
