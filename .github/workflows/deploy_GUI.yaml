@@ -43,9 +43,9 @@ jobs:
     - name: Echos
       run: |
         dir
-        cd bin/Release
+        cd bin\Release\net8.0-windows\
         dir
-        
+
     - name: release
       uses: actions/create-release@v1
       id: create_release
