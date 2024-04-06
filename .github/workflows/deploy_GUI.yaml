@@ -15,26 +15,24 @@ jobs:
   build:
     permissions: write-all
     runs-on: windows-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    
-    - name: Install Nuget
-      uses: nuget/setup-nuget@v1
-      with:
-        nuget-version: '5.x'
-
     - name: Setup MSBuild.exe
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       uses: warrenbuckley/Setup-MSBuild@v1
-    
-    - name: Build
-      run: |
-        cd AutoReview
-        .\build.cmd -pack -ci -configuration Release -prepareMachine /p:Platform=x64
+       
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+     
+    - name: Restore NuGet Packages
+      run: nuget restore AutoReview.sln
+ 
+    - name: Build and Publish Web App
+      run: msbuild AutoReview.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
       
     - name: Set Version Tag
       id: version
