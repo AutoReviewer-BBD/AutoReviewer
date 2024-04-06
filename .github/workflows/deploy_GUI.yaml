@@ -1,4 +1,4 @@
-name: Build and Release CLI
+name: Build and Release - GUI
 
 on:
   push:
@@ -27,6 +27,8 @@ jobs:
         nuget-version: '5.x'
 
     - name: Setup MSBuild.exe
+      with: 
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       uses: warrenbuckley/Setup-MSBuild@v1
     
     - name: Build
