@@ -44,7 +44,7 @@ jobs:
         dotnet-version: '8.0' # SDK Version to use; x will use the latest version of the 3.1 channel
     
     - name: Publish prod
-      run: cd ReviewAPI; dotnet restore; dotnet publish -r win10-x64 --configuration "Release" --self-contained "true" -o ../site;
+      run: cd ReviewAPI; dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../site;
 
     - name: Generate deployment package 
       run: cd site; zip ../site.zip *; cd ..; zip ReviewAPI.zip site.zip aws-windows-deployment-manifest.json
