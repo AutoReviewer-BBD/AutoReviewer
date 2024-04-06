@@ -27,8 +27,8 @@ jobs:
         nuget-version: '5.x'
 
     - name: Setup MSBuild.exe
-      with: 
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       uses: warrenbuckley/Setup-MSBuild@v1
     
     - name: Build
