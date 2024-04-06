@@ -40,6 +40,12 @@ jobs:
       id: version
       run: echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
 
+    - name: Echos
+      run: |
+        dir
+        cd bin/Release
+        dir
+        
     - name: release
       uses: actions/create-release@v1
       id: create_release
