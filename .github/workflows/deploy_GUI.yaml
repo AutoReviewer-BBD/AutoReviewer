@@ -1,0 +1,59 @@
+name: Build and Release CLI
+
+on:
+  push:
+    branches:
+      - main
+      - 'fe/*'
+      - 'cicd/*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: '5.x'
+
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+    
+    - name: Build
+      run: .\build.cmd -pack -ci -configuration Release -prepareMachine /p:Platform=x64
+      
+    - name: Set Version Tag
+      id: version
+      run: echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        tag_name: ${{ steps.version.outputs.tag }}
+        release_name: Release - ${{ steps.version.outputs.tag }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: frontend/beanstalkcli_1.0_amd64.deb
+        asset_name: beanstalkcli_1.0_amd64.deb
+        asset_content_type: application/vnd.debian.binary-package
