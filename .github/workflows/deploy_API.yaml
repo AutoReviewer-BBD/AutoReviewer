@@ -1,0 +1,76 @@
+name: Build and Release - API
+on:
+  push:
+    branches:
+      - main
+      - 'be/*'
+      - 'cicd/*'
+
+env:
+  AWS_REGION: "eu-west-1"
+  AWS_IAM_ROLE_ARN: ${{ secrets.AWS_IAM_ROLE_ARN }}
+
+permissions:
+  id-token: write
+  contents: read
+        
+jobs:
+#   API-Test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Install Postman CLI
+#         run: |
+#           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      
+#       - name: Login to Postman CLI
+#         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
+#       - name: Run API tests
+#         run: |
+#           postman collection run ${{ secrets.POSTMAN_RUN_ID }} --env-var "AUTH_TOKEN=${{ secrets.POSTMAN_OUR_API_KEY }}"
+
+  Build:
+    # needs: API-Test
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Dotnet run
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0' # SDK Version to use; x will use the latest version of the 3.1 channel
+    
+    - name: Publish prod
+      run: cd ReviewAPI; dotnet restore; dotnet publish -r win10-x64 --configuration "Release" --self-contained "true" -o ../site;
+
+    - name: Generate deployment package 
+      run: cd site; zip ../site.zip *; cd ..; zip ReviewAPI.zip site.zip aws-windows-deployment-manifest.json
+
+      
+    - uses: aws-actions/configure-aws-credentials@v4
+      id: creds
+      with:
+        role-to-assume: ${{ env.AWS_IAM_ROLE_ARN }}
+        aws-region: ${{ env.AWS_REGION }}
+        output-credentials: true
+        audience: sts.amazonaws.com
+
+    - name: Set output
+      id: vars
+      run: |
+        echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+        ls
+
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ steps.creds.outputs.aws-access-key-id }}
+        aws_secret_key: ${{ steps.creds.outputs.aws-secret-access-key }}
+        application_name: beanstalk
+        environment_name: Beanstalk-env-1
+        version_label: ${{ steps.vars.outputs.tag }}
+        region: eu-west-1
+        deployment_package: ReviewAPI.zip
