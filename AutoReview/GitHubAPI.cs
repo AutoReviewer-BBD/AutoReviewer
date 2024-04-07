@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 public static class GitHubAPI
 {
@@ -23,49 +25,67 @@ public static class GitHubAPI
         }
     }
 
-    public static async Task<List<string>> GetRepositoriesForUser(string username)
+    public static async Task GetUserRepos(ComboBox branchesComboBox)
     {
-
-        List<string> repositories = new List<string>();
-
-        using (var client = new HttpClient())
+        try
         {
-            client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            HttpClient client = new HttpClient();
+            string owner = "AutoReviewer-BBD";
+            string repo = "AutoReviewer";
+            string url = $"https://api.github.com/repos/{owner}/{repo}/branches";
 
-            // Make request to get repositories for the user
-            HttpResponseMessage response = await client.GetAsync($"{BaseUrl}users/{username}/repos");
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+            client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-            if (response.IsSuccessStatusCode)
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
             {
-                // Read response content
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                // Parse JSON response
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-
-                var repos = JsonSerializer.Deserialize<List<Repo>>(responseBody, options);
-
-                foreach (var repo in repos)
-                {
-                    repositories.Add(repo.Name);
-                }
+                throw new Exception();
             }
-            else
+            var responseContent = await response.Content.ReadAsStringAsync();
+            JsonDocument document = JsonDocument.Parse(responseContent);
+
+            branchesComboBox.Dispatcher.Invoke(() =>
             {
-                Console.WriteLine($"Failed to retrieve repositories: {response.ReasonPhrase}");
+                branchesComboBox.Items.Clear();
+            });
+
+            
+            List<string> branchList = new List<string>();
+            JsonElement root = document.RootElement;
+            foreach (JsonElement repoElement in root.EnumerateArray())
+            {
+                string name = repoElement.GetProperty("name").GetString();
+                branchList.Add(name);
             }
+
+            branchesComboBox.Dispatcher.Invoke(() =>
+            {
+                branchesComboBox.ItemsSource = branchList;
+                branchesComboBox.SelectedIndex = 0;
+            });
+
         }
-
-        return repositories;
+        catch (HttpRequestException ex)
+        {
+            Trace.WriteLine($"HTTP request exception: {ex.Message}");
+            throw; // Rethrow the exception to propagate it upwards
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
     }
 
-    // Class to represent repository JSON response
-    private class Repo
+    public static void PopulatePRTypeSelection(ComboBox prTypeComboBox)
     {
-        public string Name { get; set; }
+        prTypeComboBox.Dispatcher.Invoke(() =>
+        {
+            prTypeComboBox.ItemsSource = new List<string> { "Frontend", "Backend", "Database", "Infrastructure", "Maintenance" };
+            prTypeComboBox.SelectedIndex = 0;
+        });
     }
 }
