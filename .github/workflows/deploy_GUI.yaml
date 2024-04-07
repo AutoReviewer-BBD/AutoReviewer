@@ -21,7 +21,7 @@ jobs:
     - name: Set Version Tag
       id: version
       run: |
-        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_ENV"
+        echo "tag=(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_ENV"
         echo "Tag set to $tag"
 
     - name: Debug
