@@ -4,9 +4,12 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using Image = System.Windows.Controls.Image;
 
 public static class GitHubAuther
 {
@@ -32,15 +35,14 @@ public static class GitHubAuther
             { "redirect_uri", RedirectUri }
         };
 
-        Client = new HttpClient();
-        Client.BaseAddress = new Uri("https://github.com");
+        using var client = new HttpClient();
+        var response = await client.PostAsync(tokenUrl, new FormUrlEncodedContent(requestParams));
+        response.EnsureSuccessStatusCode();
 
-        var response = await Client.PostAsync(tokenUrl, new FormUrlEncodedContent(requestParams));
         var responseContent = await response.Content.ReadAsStringAsync();
-
         var queryParams = HttpUtility.ParseQueryString(responseContent);
         return queryParams["access_token"];
-        
+
     }
 
     static void StartLocalHttpServer(Action<string> callback)
@@ -64,7 +66,7 @@ public static class GitHubAuther
         });
     }
 
-    static public void SetAuthLink(Button button, TextBlock textBlock)
+    static public void SetAuthLink(Button button, TextBlock textBlock, Image image, ComboBox branchesComboBox)
     {
         // Construct the authorization URL
         string authorizationUrl = $"https://github.com/login/oauth/authorize?client_id={ClientId}&scope=user";
@@ -73,15 +75,17 @@ public static class GitHubAuther
         button.Content = "Authorize";
 
         // Handle button click event
-        button.Click += (sender, e) =>
+        button.Click += async (sender, e) =>
         {
             // Open the authorization URL in the default web browser
             Process.Start(new ProcessStartInfo(authorizationUrl) { UseShellExecute = true });
 
             // Start local HTTP server to receive callback
+            
             StartLocalHttpServer(async code =>
             {
                 AuthorizationCode = code;
+                
                 textBlock.Dispatcher.Invoke(() =>
                 {
                     textBlock.Text = "Authorization code received. Retrieving access token...";
@@ -89,7 +93,7 @@ public static class GitHubAuther
 
                 // Get access token using the received authorization code
                 AccessToken = await GetAccessTokenAsync();
-
+                Trace.WriteLine(AccessToken);
                 // Get username using the access token
                 Username = await GetUsernameAsync();
 
@@ -98,21 +102,103 @@ public static class GitHubAuther
                     textBlock.Text = "Access token retrieved.";
                 });
 
+
+                textBlock.Dispatcher.Invoke(() =>
+                {
+                    textBlock.Text = $"Logged in as {Username}";
+                });
+
+                await SetUserProfileImage(image);
+
+                await GitHubAPI.GetUserRepos(branchesComboBox);
             });
         };
     }
 
+    public class UserResponse
+    {
+        public string Login { get; set; }
+        // other properties if needed
+    }
+
     static async Task<string> GetUsernameAsync()
     {
+        try
+        {
+            HttpClient client = new HttpClient();
+            string url = "https://api.github.com/user";
 
-        using var request = new HttpRequestMessage(HttpMethod.Get, "/users/");
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {AccessToken}");
+            client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-        using var response = await Client.SendAsync(request);
-        response.EnsureSuccessStatusCode();
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+            var responseContent = await response.Content.ReadAsStringAsync();
+            using (JsonDocument document = JsonDocument.Parse(responseContent))
+            {
+                JsonElement root = document.RootElement;
+                return root.GetProperty("login").GetString();
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Trace.WriteLine($"HTTP request exception: {ex.Message}");
+            throw; // Rethrow the exception to propagate it upwards
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
+    }
 
-        string content = await response.Content.ReadAsStringAsync();
-        Trace.WriteLine(content);
-        return content;
+    static async Task SetUserProfileImage(Image img)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            string url = "https://api.github.com/user";
+
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {AccessToken}");
+            client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+            var responseContent = await response.Content.ReadAsStringAsync();
+            JsonDocument document = JsonDocument.Parse(responseContent);
+            
+            JsonElement root = document.RootElement;
+            string imgUrl = root.GetProperty("avatar_url").GetString();
+
+            img.Dispatcher.Invoke(() =>
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(imgUrl, UriKind.Absolute);
+                bitmap.EndInit();
+
+                img.Source = bitmap;
+            });
+        }
+        catch (HttpRequestException ex)
+        {
+            Trace.WriteLine($"HTTP request exception: {ex.Message}");
+            throw; // Rethrow the exception to propagate it upwards
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
     }
 }
