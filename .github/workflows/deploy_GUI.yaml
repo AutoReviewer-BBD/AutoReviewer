@@ -38,7 +38,9 @@ jobs:
       
     - name: Set Version Tag
       id: version
-      run: echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+      run: |
+        $tag = Get-Date -Format "yyyy.MM.dd.HHmm"
+        echo "tag=$tag" >> $env:GITHUB_ENV
 
     - name: Debug
       run: echo ${{ steps.version.outputs.tag }}
