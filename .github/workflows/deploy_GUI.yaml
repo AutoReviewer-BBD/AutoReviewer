@@ -21,12 +21,12 @@ jobs:
     - name: Set Version Tag
       id: version
       run: |
-        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')"
-        echo tag
+        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> $GITHUB_ENV
     
 
     - name: Debug
-      run: echo ${{ steps.version.outputs.tag }}
+      run: echo ${{ env.tag }}
+      
 
     - name: Checkout repository
       uses: actions/checkout@v4
