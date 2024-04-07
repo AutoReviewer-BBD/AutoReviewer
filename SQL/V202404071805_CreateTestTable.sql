@@ -1,0 +1,4 @@
+CREATE TABLE TableTest(
+    TestId INT PRIMARY KEY,
+    TestName VARCHAR(255) NOT NULL
+);
