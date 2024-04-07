@@ -44,9 +44,9 @@ jobs:
       uses: actions/create-release@v1
       id: create_release
       with:
-        tag_name: ${{ steps.version.outputs.tag }}
         release_name: Release - ${{ steps.version.outputs.tag }}
         draft: false
+        tag_name: ${{ steps.version.outputs.tag }}
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ github.token }}
