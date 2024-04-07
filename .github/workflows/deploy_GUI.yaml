@@ -22,12 +22,12 @@ jobs:
       id: version
       run: |
         echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_ENV"
-        echo ${{ env.tag }}
+        echo "Tag set to $env:tag"
 
     
 
     - name: Debug
-      run: echo ${{ env.tag }}
+      run: echo $env:tag
       
 
     - name: Checkout repository
