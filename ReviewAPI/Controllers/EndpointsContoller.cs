@@ -11,6 +11,9 @@ public class userController : ControllerBase
     public userController(ILogger<userController> logger)
     {
         _logger = logger;
+
+        DatabaseAPI.Initialize();
+
     }
 
     /// <summary>
