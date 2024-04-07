@@ -24,11 +24,8 @@ jobs:
         echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_ENV"
         echo "Tag set to $env:tag"
 
-    
-
     - name: Debug
-      run: echo $env:tag
-      
+      run: echo "Tag set to $env:tag"
 
     - name: Checkout repository
       uses: actions/checkout@v4
