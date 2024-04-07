@@ -59,10 +59,12 @@ jobs:
     - name: release
       uses: actions/create-release@v1
       id: create_release
+      env: 
+        TAG: ${{ steps.version.outputs.tag }}
       with:
         release_name: Release - ${{ steps.version.outputs.tag }}
         draft: false
-        tag_name: ${{ steps.version.outputs.tag }}
+        tag_name: ${{ env.TAG }}
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ github.token }}
