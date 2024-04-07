@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AutoReview
-build_property.ProjectDir = C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\
+build_property.ProjectDir = D:\Grad Program\C#\AutoReviewer\AutoReview\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
