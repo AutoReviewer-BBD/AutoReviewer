@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 env:
-  terraform_directory: "./terraform"
+  terraform_directory: "./Terraform"
 
 jobs:
   terraform-apply:

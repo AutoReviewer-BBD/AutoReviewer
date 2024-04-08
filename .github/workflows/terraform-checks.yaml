@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 env:
-  terraform_directory: "./terraform"
+  terraform_directory: "./Terraform"
 
 jobs:
   terraform-checks:
