@@ -1,3 +1,7 @@
+
+*.vsidx
+.vs/slnx.sqlite
+*.sqlite-journal
 .vs
 
 AutoReview/obj/
