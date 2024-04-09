@@ -1,0 +1,81 @@
+name: Build and Release - GUI
+
+on:
+  push:
+    branches:
+      - main
+      - 'fe/*'
+      - 'cicd/*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    permissions: write-all
+    runs-on: windows-latest
+
+    steps:
+
+    - name: Set color
+      id: color-selector
+      run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+    - name: Get color
+      env:
+        SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
+      run: echo "The selected color is $SELECTED_COLOR"
+
+    - name: Set Version Tag
+      id: version
+      run: |
+        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_OUTPUT"
+        echo "Tag set to $tag"
+
+    - name: Debug
+      env:
+        TAG: ${{ steps.version.output.tag }}
+      run: echo "Tag set to $TAG"
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup MSBuild.exe
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      uses: warrenbuckley/Setup-MSBuild@v1
+       
+    - name: Setup NuGet
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      uses: NuGet/setup-nuget@v1.0.2
+     
+    - name: Restore NuGet Packages
+      run: nuget restore AutoReview.sln
+ 
+    - name: Build and Publish Web App
+      run: msbuild AutoReview.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      env: 
+        TAG: ${{ steps.version.outputs.tag }}
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        release_name: Release - ${{ steps.version.outputs.tag }}
+        draft: false
+        tag_name: ${{ env.TAG }}
+        prerelease: false
+
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: AutoReview\bin\Release\net8.0-windows\AutoReview.exe
+        asset_name: AutoReview.exe
+        asset_content_type: application/octet-stream

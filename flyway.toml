@@ -1,0 +1,6 @@
+[flyway]
+locations = ["filesystem:SQL"]
+
+ 
+[environments.default]
+locations = ["filesystem:SQL"]
