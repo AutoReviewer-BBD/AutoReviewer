@@ -32,6 +32,56 @@ public static class GitHubAPI
         }
     }
 
+    public static async Task<List<Dictionary<string, string>>> GetUserRepositoriesEndPoint(string token)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            string url = "https://api.github.com/user/repos";
+
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+            
+            var responseContent = await response.Content.ReadAsStringAsync();
+            JsonDocument document = JsonDocument.Parse(responseContent);
+
+            List<Dictionary<string, string>> repositories = new List<Dictionary<string, string>>();
+            JsonElement root = document.RootElement;
+            foreach (JsonElement repoElement in root.EnumerateArray())
+            {
+
+                string repositoryName = repoElement.GetProperty("name").GetString();
+                string repositoryOwnerName = repoElement.GetProperty("owner").GetProperty("login").GetString();
+                repositories.Add(new Dictionary<string, string>{
+                    {"RepositoryName", repositoryName},
+                    {"RepositoryOwnerUsername", repositoryOwnerName}
+                });
+            }
+
+            return repositories;
+        }
+        catch (HttpRequestException ex)
+        {
+            Trace.WriteLine($"HTTP request exception: {ex.Message}");
+            throw; // Rethrow the exception to propagate it upwards
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
+    }
+
+
+
     public static async Task<List<Dictionary<string, string>>> GetUserRepositories()
     {
         try
@@ -60,10 +110,6 @@ public static class GitHubAPI
 
                 string repositoryName = repoElement.GetProperty("name").GetString();
                 string repositoryOwnerName = repoElement.GetProperty("owner").GetProperty("login").GetString();
-                Console.WriteLine("Add");
-                Console.WriteLine(repoElement);
-                Console.WriteLine(repositoryName);
-                Console.WriteLine(repositoryOwnerName);
                 repositories.Add(new Dictionary<string, string>{
                     {"RepositoryName", repositoryName},
                     {"RepositoryOwnerUsername", repositoryOwnerName}
@@ -111,8 +157,6 @@ public static class GitHubAPI
             {
                 string name = repoElement.GetProperty("name").GetString();
                 branches.Add(name);
-                Console.WriteLine("Added branch");
-                Console.WriteLine(name);
             }
 
             return branches;

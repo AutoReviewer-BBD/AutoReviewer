@@ -32,7 +32,7 @@ namespace Api.Repositories
                 .ToList();
             
             if (registrationsToDelete.Any()){
-                dataContext.RemoveRange(registrationsToDelete);
+                dataContext.Registrations.RemoveRange(registrationsToDelete);
                 dataContext.SaveChanges();
             }
         }
