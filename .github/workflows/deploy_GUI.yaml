@@ -45,10 +45,11 @@ jobs:
         add-path: true
 
     - name: Zip contents
-      shell: bash
+      shell: powershell
       run: |
         cd AutoReview/bin/Release/net8.0-windows
-        zip -r net8.0-windows.zip .
+        Compress-Archive . out.zip
+
 
     - name: release
       uses: actions/create-release@v1
@@ -70,6 +71,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: AutoReview\bin\Release\net8.0-windows\net8.0-windows.zip
+        asset_path: AutoReview\bin\Release\net8.0-windows\out.zip
         asset_name: net8.0-windows.zip
         asset_content_type: application/octet-stream
