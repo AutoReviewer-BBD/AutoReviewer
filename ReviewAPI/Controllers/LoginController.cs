@@ -70,15 +70,27 @@ namespace Api.Controller
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        // private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
+        //     List<> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
+        //     List<Repository> repositories = repositoryDictionary.Select(
+        //         repository => new Repository(){
+        //            RepositoryName = repository.Split("/")[1] ,
+        //            RepositoryOwnerUsername = repository.Split("/")[0]
+        //         }
+        //     ).ToList();
+
+        //     Populator.AddRegistrationsForUser(gitHubUser.GitHubUsername, repositories);
+        // }
+
         private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
-            List<string> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
+            List<Dictionary<string, string>> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
             List<Repository> repositories = repositoryDictionary.Select(
                 repository => new Repository(){
-                   RepositoryName = repository.Split("/")[1] ,
-                   RepositoryOwnerUsername = repository.Split("/")[0]
+                   RepositoryName = repository["RepositoryName"] ,
+                   RepositoryOwnerUsername = repository["RepositoryOwnerUsername"]
                 }
             ).ToList();
-
+ 
             Populator.AddRegistrationsForUser(gitHubUser.GitHubUsername, repositories);
         }
     }

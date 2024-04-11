@@ -32,13 +32,14 @@ public static class ReviewAPI
                 };
 
                 var data = JsonSerializer.Deserialize<List<Repo>>(responseBody, options);
+                return new List<string> { "AutoReviewer-BBD/AutoReviewer" };
 
                 return data.Select(repo => repo.singleString).ToList();
             }
             else
             {
                 Console.WriteLine($"Failed to retrieve repositories: {response.ReasonPhrase}");
-                return new List<string> { "a" };
+                return new List<string> { "AutoReviewer-BBD/AutoReviewer" };
 
             }
         }

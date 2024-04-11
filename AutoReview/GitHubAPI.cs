@@ -35,6 +35,8 @@ public static class GitHubAPI
 
         using (var client = new HttpClient())
         {
+            client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
             // Make request to get repositories for the user
             HttpResponseMessage response = await client.GetAsync($"{BaseUrl}repos/{repoOwner}/{repoName}/branches");
 
