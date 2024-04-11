@@ -1,7 +1,7 @@
 # Stage 1: Restore dependencies
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR ReviewAPI/
-COPY *.csproj ./
+COPY ReviewAPI/*.csproj ./
 # RUN dotnet restore
  
 # Stage 2: Build the application
