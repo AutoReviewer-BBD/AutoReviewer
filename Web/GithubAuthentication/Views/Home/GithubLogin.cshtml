@@ -1,7 +1,58 @@
-﻿@model Octokit.User
+﻿@model IEnumerable<GithubAuthentication.Controllers.RepositoryWithBranches>
+
 @{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Repositories";
 }
-<h2>@(Model.Login)</h2>
 
+<div class="row mt-4">
+    <div class="col">
+        <label for="repoDropdown">Select Repository:</label>
+        <select class="form-control" id="repoDropdown" onchange="update Branches()">
+            @foreach (var repoWithBranches in Model)
+            {
+                <option value="@repoWithBranches.Repository.Name">@repoWithBranches.Repository.Name</option>
+            }
+        </select>
+    </div>
+    <div class="col">
+        <label for="branchDropdown">Select Branch:</label>
+        <select class="form-control" id="branchDropdown" name="branchDropdown">
+            <!-- Branch options will be populated dynamically using server-side code -->
+            @{
+                var selectedRepo = Model.FirstOrDefault();
+                if (selectedRepo != null && selectedRepo.Branches != null)
+                {
+                    foreach (var branch in selectedRepo.Branches)
+                    {
+                        <option value="@branch">@branch</option>
+                    }
+                }
+                else
+                {
+                    <option disabled selected>No branches available</option>
+                }
+            }
+        </select>
 
+    </div>
+
+    <div class="col">
+        <label for="prTypeDropdown">Select PR Type:</label>
+        <select class="form-control" id="prTypeDropdown">
+            <option value="feature">Feature</option>
+            <option value="bugfix">Bugfix</option>
+            <option value="hotfix">Hotfix</option>
+        </select>
+    </div>
+
+    <div class="col">
+        <label>&nbsp;</label>
+        <button class="btn btn-primary" onclick="createPullRequest()">Create PR</button>
+    </div>
+</div>
+
+<script>
+    function changeBranches() {
+
+    }
+</script>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Octokit.Repository>
+
+@{
+    ViewBag.Title = "Repositories";
+}
+
+<h2>Repositories</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Language</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var repo in Model)
+        {
+            <tr>
+                <td>@repo.Name</td>
+                <td>@repo.Description</td>
+                <td>@repo.Language</td>
+            </tr>
+        }
+    </tbody>
+</table>
