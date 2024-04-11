@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: "eu-west-1"
-  AWS_ASSUME_ROLE: ${{ secrets.AWS_ASSUME_ROLE }}
+  AWS_ASSUME_ROLE: ${{ secrets.AWS_ASSUME_ROLE_2 }}
 
 permissions:
   id-token: write
