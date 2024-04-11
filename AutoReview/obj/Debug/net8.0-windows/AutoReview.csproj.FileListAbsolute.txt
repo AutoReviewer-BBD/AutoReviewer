@@ -1,20 +1,21 @@
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview_MarkupCompile.cache
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview_MarkupCompile.lref
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\bin\Debug\net8.0-windows\AutoReview.exe
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\bin\Debug\net8.0-windows\AutoReview.deps.json
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\bin\Debug\net8.0-windows\AutoReview.runtimeconfig.json
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\bin\Debug\net8.0-windows\AutoReview.dll
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\bin\Debug\net8.0-windows\AutoReview.pdb
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\MainWindow.baml
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.g.resources
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.AssemblyInfoInputs.cache
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.AssemblyInfo.cs
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.csproj.CoreCompileInputs.cache
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.dll
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\refint\AutoReview.dll
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.pdb
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview.genruntimeconfig.cache
-C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\ref\AutoReview.dll
+D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.exe
+D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.deps.json
+D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.runtimeconfig.json
+D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.dll
+D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.pdb
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\MainWindow.g.cs
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\App.g.cs
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview_MarkupCompile.cache
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview_MarkupCompile.lref
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\MainWindow.baml
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.g.resources
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.GeneratedMSBuildEditorConfig.editorconfig
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.AssemblyInfoInputs.cache
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.AssemblyInfo.cs
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.csproj.CoreCompileInputs.cache
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.sourcelink.json
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.dll
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\refint\AutoReview.dll
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.pdb
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.genruntimeconfig.cache
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\ref\AutoReview.dll
