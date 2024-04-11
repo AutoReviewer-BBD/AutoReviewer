@@ -173,19 +173,21 @@ public static class GitHubAPI
         }
     }
 
-    public static async Task CreatePR(
+    public static async Task<bool> CreatePR(
         string repoOwner, 
         string repoName, 
         string prTitle, 
         string prHead, 
         string prType,
+        string paramAccess,
         int skillID,
-        int repositoryID
+        int repositoryID,
+        int gitHubUserID
     ) {
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + paramAccess);
 
             // Create pull request payload
             var prPayload = new PullRequestBody
@@ -216,12 +218,19 @@ public static class GitHubAPI
                 // First see if they are adding anyone
                 AutoReviewerDbContext dataContext = new AutoReviewerDbContext();
                 UserSkillsRepository userSkillsRepository = new UserSkillsRepository(dataContext);
-                ICollection<ProcedureUsersWithSkill> usersWithSkill = userSkillsRepository.GetUsersWithSkillInRepository(skillID, repositoryID);
+                ICollection<ProcedureUsersWithSkill> usersWithSkill = userSkillsRepository.GetUsersWithSkillInRepository(skillID, repositoryID, gitHubUserID);
                 List<string> reviewers = new List<string>();
+
+                Console.WriteLine("Getting reviewers");
 
                 foreach (var entry in usersWithSkill){
                     reviewers.Add(entry.GitHubUsername);
+                    Console.WriteLine("Added");
+                    Console.WriteLine(entry.GitHubUsername);
                 }
+
+                Console.WriteLine("Done getting");
+                Console.WriteLine(reviewers.Count);
 
                 if (reviewers.Count != 0){
                     string pullNumber = "";
@@ -240,10 +249,13 @@ public static class GitHubAPI
                         reviewers,
                         repoOwner,
                         repoName,
-                    pullNumber
+                        pullNumber,
+                        paramAccess
                     );
 
                     Process.Start(new ProcessStartInfo(doc.RootElement.GetProperty("html_url").ToString()) { UseShellExecute = true });   
+
+                    return true;
                 }
                 else {
                     Console.WriteLine($"There were no users with the skill {prType} in the repo {repoName} to add to this review");
@@ -253,24 +265,28 @@ public static class GitHubAPI
             {
                 Console.WriteLine($"Failed to create pull request for {username}: {response.ReasonPhrase}");
             }
+
+            return false;
         }
     }
 
-    public static async Task AddReviewersToPR(List<string> usernamesToAdd, string repoOwner, string repoName, string pullNumber)
+    public static async Task AddReviewersToPR(List<string> usernamesToAdd, string repoOwner, string repoName, string pullNumber, string paramAccess)
     {
-        List<string> pullRequestLinks = new List<string>();
-
         using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + paramAccess);
 
-            var prPayload = new
+            var prPayload = new Dictionary<string, List<string>>
             {    
-                reviewers=usernamesToAdd
-            };
-
+                {"reviewers", usernamesToAdd},
+                {"team_reviewers", []}
+            };            
+        
             var jsonPayload = JsonSerializer.Serialize(prPayload);
+
+            Console.WriteLine("JSON");
+            Console.WriteLine(jsonPayload);
 
             var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 

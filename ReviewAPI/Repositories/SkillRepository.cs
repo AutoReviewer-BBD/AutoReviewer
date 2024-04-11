@@ -15,5 +15,12 @@ namespace Api.Repositories
         public ICollection<Skill> GetAllSkills(){
             return dataContext.Skills.ToList();
         }
+
+        public Skill? GetSkillWithName(string skillname){
+            var queryResult = dataContext.Skills
+                                .Where(skill => skill.SkillName == skillname)
+                                .FirstOrDefault();
+            return queryResult;
+        }
     }
 }

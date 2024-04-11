@@ -93,9 +93,10 @@ public partial class AutoReviewerDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-    public List<ProcedureUsersWithSkill> ViewUsersWithSkillInRepository(int skillID, int repositoryID)
+    public List<ProcedureUsersWithSkill> ViewUsersWithSkillInRepository(int skillID, int repositoryID, int userID)
     {
-        return ProcedureUsersWithSkill.FromSqlRaw("EXEC ViewUsersWithSkillInRepository @skillID, @repositoryID", 
+        return ProcedureUsersWithSkill.FromSqlRaw("EXEC ViewUsersWithSkillInRepository @userID, @skillID, @repositoryID", 
+            new SqlParameter("@userID", userID),
             new SqlParameter("@skillID", skillID),
             new SqlParameter("@repositoryID", repositoryID))
             .ToList();
