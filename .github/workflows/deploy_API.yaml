@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: "eu-west-1"
-  AWS_IAM_ROLE_ARN: ${{ secrets.AWS_IAM_ROLE_ARN }}
+  AWS_ASSUME_ROLE: ${{ secrets.AWS_ASSUME_ROLE_2 }}
 
 permissions:
   id-token: write
@@ -41,19 +41,19 @@ jobs:
     - name: Dotnet run
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: '8.0'
     
-    - name: Publish prod
-      run: cd ReviewAPI; dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../site;
+    # - name: Publish prod
+    #   run: cd ReviewAPI; dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../site;
 
-    - name: Generate deployment package 
-      run: cd site; zip ../site.zip *; cd ..; zip ReviewAPI.zip site.zip aws-windows-deployment-manifest.json
+    # - name: Generate deployment package 
+    #   run: cd site; zip ../site.zip *; cd ..; zip ReviewAPI.zip site.zip aws-windows-deployment-manifest.json
 
       
     - uses: aws-actions/configure-aws-credentials@v4
       id: creds
       with:
-        role-to-assume: ${{ env.AWS_IAM_ROLE_ARN }}
+        role-to-assume: ${{ env.AWS_ASSUME_ROLE }}
         aws-region: ${{ env.AWS_REGION }}
         output-credentials: true
         audience: sts.amazonaws.com
@@ -64,13 +64,33 @@ jobs:
         echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
         ls
 
-    - name: Deploy to Elastic Beanstalk
-      uses: einaregilsson/beanstalk-deploy@v21
-      with:
-        aws_access_key: ${{ steps.creds.outputs.aws-access-key-id }}
-        aws_secret_key: ${{ steps.creds.outputs.aws-secret-access-key }}
-        application_name: beanstalk
-        environment_name: Beanstalk-env-1
-        version_label: ${{ steps.vars.outputs.tag }}
-        region: eu-west-1
-        deployment_package: ReviewAPI.zip
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Get commit hash
+      id: get-commit-hash
+      run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+    - name: Get timestamp
+      id: get-timestamp
+      run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d-%H-%M')"
+
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: autoreview
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+    # - name: Deploy to Elastic Beanstalk
+    #   uses: einaregilsson/beanstalk-deploy@v21
+    #   with:
+    #     aws_access_key: ${{ steps.creds.outputs.aws-access-key-id }}
+    #     aws_secret_key: ${{ steps.creds.outputs.aws-secret-access-key }}
+    #     application_name: autoreview
+    #     environment_name: Autoreview-env
+    #     version_label: ${{ steps.vars.outputs.tag }}
+    #     region: eu-west-1
+    #     deployment_package: ReviewAPI.zip
