@@ -37,10 +37,18 @@ jobs:
     - name: Build the project
       run: dotnet build AutoReview/AutoReview.csproj --configuration Release
 
-    - name: Echos
+    - name: Set up Git Bash
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: x64
+        add-path: true
+
+    - name: Zip contents
+      shell: bash
       run: |
         cd AutoReview/bin/Release/net8.0-windows
-        ls
+        zip -r net8.0-windows.zip .
 
     - name: release
       uses: actions/create-release@v1
@@ -62,6 +70,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: AutoReview\bin\Release\net8.0-windows\AutoReview.exe
-        asset_name: AutoReview.exe
+        asset_path: AutoReview\bin\Release\net8.0-windows\net8.0-windows.zip
+        asset_name: net8.0-windows.zip
         asset_content_type: application/octet-stream
