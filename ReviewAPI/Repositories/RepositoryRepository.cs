@@ -30,8 +30,8 @@ namespace Api.Repositories
             return repository;
         }
 
-        public ICollection<ProcedureViewUsersRepositories> GetRepositoriesForUser(int gitHubUserID){
-            var queryResult = dataContext.GetRepositoriesForUser(gitHubUserID);
+        public ICollection<ProcedureViewUsersRepositories> GetRepositoriesForUser(string gitHubUsername){
+            var queryResult = dataContext.GetRepositoriesForUser(gitHubUsername);
             return queryResult.ToList();
         }
     }

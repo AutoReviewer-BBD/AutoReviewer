@@ -43,7 +43,7 @@ namespace Api.Controller
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(Repository))]
-        public async async Task<IActionResult> GetUserRepositories()
+        public async Task<IActionResult> GetUserRepositories()
         {
         if (!Request.Headers.TryGetValue("Authorization", out var authorizationHeader))
             {

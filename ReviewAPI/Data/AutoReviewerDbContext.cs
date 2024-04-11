@@ -101,10 +101,10 @@ public partial class AutoReviewerDbContext : DbContext
             .ToList();
     }
 
-    public List<ProcedureViewUsersRepositories> GetRepositoriesForUser(int gitHubUserID)
+    public List<ProcedureViewUsersRepositories> GetRepositoriesForUser(string gitHubUsername)
     {
-        return ProcedureViewUsersRepositories.FromSqlRaw("EXEC ViewUserRepositories @userID", 
-            new SqlParameter("@userID", gitHubUserID))
+        return ProcedureViewUsersRepositories.FromSqlRaw("EXEC ViewUserRepositories @gitHubUsername", 
+            new SqlParameter("@gitHubUsername", gitHubUsername))
             .ToList();
     }
 }
