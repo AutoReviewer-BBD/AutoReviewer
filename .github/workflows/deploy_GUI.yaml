@@ -43,8 +43,7 @@ jobs:
 
     - name: Echos
       run: |
-        ls
-        cd AutoReview/bin/Release
+        cd AutoReview/bin/Release/net8.0-windows
         ls
 
     - name: release
