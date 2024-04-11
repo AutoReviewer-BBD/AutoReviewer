@@ -81,6 +81,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: autoreview
       run: |
+        aws ecr batch-delete-image --repository-name autoreview --region eu-west-1 --image-ids imageTag=latest
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
