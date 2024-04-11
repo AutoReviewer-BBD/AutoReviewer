@@ -64,7 +64,7 @@ public static class GitHubAuther
         });
     }
 
-    static public void SetAuthLink(Button button, TextBlock textBlock)
+    static public void SetAuthLink(Button button, TextBlock textBlock, ComboBox RepoComboBox)
     {
         // Construct the authorization URL
         string authorizationUrl = $"https://github.com/login/oauth/authorize?client_id={ClientId}&scope=user,repo,pull_requests:write,pull_requests:read";
@@ -96,6 +96,11 @@ public static class GitHubAuther
                 textBlock.Dispatcher.Invoke(() =>
                 {
                     textBlock.Text = "Access token retrieved.";
+                });
+
+                _ = RepoComboBox.Dispatcher.Invoke(async () =>
+                {
+                    RepoComboBox.ItemsSource = await ReviewAPI.GetUserReposAsync(AccessToken);
                 });
 
             });

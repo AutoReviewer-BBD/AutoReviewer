@@ -21,10 +21,6 @@ namespace AutoReview
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-            RepoComboBox.Dispatcher.Invoke(() => {
-                RepoComboBox.ItemsSource = new List<string> { "AutoReviewer-BBD/AutoReviewer" };
-            });
-
             CreatePrButton.Dispatcher.Invoke(async () => {
                 CreatePrButton.IsEnabled = false;
             });
@@ -32,7 +28,8 @@ namespace AutoReview
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GitHubAuther.SetAuthLink(AuthButton, More);
+            GitHubAuther.SetAuthLink(AuthButton, More, RepoComboBox);
+           
         }
 
         private void RepoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
