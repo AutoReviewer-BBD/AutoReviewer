@@ -69,8 +69,8 @@ jobs:
       with:
         aws_access_key: ${{ steps.creds.outputs.aws-access-key-id }}
         aws_secret_key: ${{ steps.creds.outputs.aws-secret-access-key }}
-        application_name: beanstalk
-        environment_name: Beanstalk-env-1
+        application_name: autoreview
+        environment_name: Autoreview-env
         version_label: ${{ steps.vars.outputs.tag }}
         region: eu-west-1
         deployment_package: ReviewAPI.zip
