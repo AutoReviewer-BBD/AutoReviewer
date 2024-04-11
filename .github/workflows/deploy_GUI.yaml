@@ -44,9 +44,7 @@ jobs:
     - name: Echos
       run: |
         ls
-        dir
-        cd AutoReview/obj
-        dir
+        cd AutoReview/bin/Release
         ls
 
     - name: release
