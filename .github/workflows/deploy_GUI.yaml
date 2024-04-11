@@ -19,7 +19,7 @@ jobs:
     steps:
 
     - name: Set Version Tag
-      id: vars
+      id: version
       run: |
         echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
         ls
