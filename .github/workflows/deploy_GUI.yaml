@@ -18,54 +18,49 @@ jobs:
 
     steps:
 
-    - name: Set color
-      id: color-selector
-      run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
-    - name: Get color
-      env:
-        SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
-      run: echo "The selected color is $SELECTED_COLOR"
-
-    - name: Set Version Tag
-      id: version
+    - name: Set output
+      id: vars
+      shell: powershell
       run: |
-        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_OUTPUT"
-        echo "Tag set to $tag"
-
-    - name: Debug
-      env:
-        TAG: ${{ steps.version.output.tag }}
-      run: echo "Tag set to $TAG"
+        $tag = Get-Date -Format 'yyyy.MM.dd.HHmm'
+        Write-Host "tag=$tag" >> $env:GITHUB_OUTPUT
 
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Setup MSBuild.exe
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      uses: warrenbuckley/Setup-MSBuild@v1
-       
-    - name: Setup NuGet
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      uses: NuGet/setup-nuget@v1.0.2
-     
-    - name: Restore NuGet Packages
-      run: nuget restore AutoReview.sln
- 
-    - name: Build and Publish Web App
-      run: msbuild AutoReview.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0'  # Adjust the .NET SDK version as needed
+      
+    - name: Build the project
+      run: dotnet build AutoReview/AutoReview.csproj --configuration Release
+
+    - name: Set up Git Bash
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: x64
+        add-path: true
+
+    - name: Zip contents
+      shell: powershell
+      run: |
+        cd AutoReview/bin/Release/net8.0-windows
+        Compress-Archive . out.zip
+
 
     - name: release
       uses: actions/create-release@v1
       id: create_release
       env: 
-        TAG: ${{ steps.version.outputs.tag }}
+        TAG: ${{ steps.vars.outputs.tag }}
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        release_name: Release - ${{ steps.version.outputs.tag }}
+        release_name: Release - 3
         draft: false
-        tag_name: ${{ env.TAG }}
+        tag_name: "V3"
         prerelease: false
 
 
@@ -76,6 +71,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: AutoReview\bin\Release\net8.0-windows\AutoReview.exe
-        asset_name: AutoReview.exe
+        asset_path: AutoReview\bin\Release\net8.0-windows\out.zip
+        asset_name: net8.0-windows.zip
         asset_content_type: application/octet-stream
