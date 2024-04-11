@@ -21,7 +21,7 @@ jobs:
     - name: Set Version Tag
       id: version
       run: |
-        echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+        echo "::set-output name=current_date::$(date +'%Y.%m.%d.%H.%M')"
         ls
 
     - name: Debug
