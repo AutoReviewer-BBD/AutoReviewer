@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Api.Controller
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class RepositoryController : ControllerBase
     {
         private readonly IRepositoryRepository repositoryRepository;
@@ -26,7 +26,7 @@ namespace Api.Controller
 
             if (githubUserID == null)
             {
-                return BadRequest("Cannot find userId within token");
+                throw new Exception("Cannot find userId within token");
             }
 
             return int.Parse(githubUserID);
@@ -36,7 +36,14 @@ namespace Api.Controller
         [ProducesResponseType(200, Type = typeof(Repository))]
         public IActionResult GetUserRepositories()
         {
-            int gitHubUserID = GetCurrentUser();
+            int gitHubUserID = -1;
+            try {
+                gitHubUserID = GetCurrentUser();
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Cannot find userId within token");
+            }
             var repositories = repositoryRepository.GetRepositoriesForUser(gitHubUserID);
 
             return Ok(repositories);
