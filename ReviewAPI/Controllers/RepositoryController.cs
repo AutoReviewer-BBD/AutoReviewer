@@ -26,7 +26,7 @@ namespace Api.Controller
 
             if (githubUserID == null)
             {
-                throw new Exception("Cannot find userId within token");
+                return BadRequest("Cannot find userId within token");
             }
 
             return int.Parse(githubUserID);
