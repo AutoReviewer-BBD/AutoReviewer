@@ -287,7 +287,7 @@ public static class GitHubAPI
             Console.WriteLine("JSON");
             Console.WriteLine(jsonPayload);
 
-            StringContent content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
             // Make request to create pull request
             HttpResponseMessage response = await client.PostAsync($"{BaseUrl}repos/{repoOwner}/{repoName}/pulls/{pullNumber}/requested_reviewers", content);
