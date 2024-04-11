@@ -32,8 +32,7 @@ public static class ReviewAPI
                 };
 
                 var data = JsonSerializer.Deserialize<List<Repo>>(responseBody, options);
-                return new List<string> { "AutoReviewer-BBD/AutoReviewer" };
-
+                
                 return data.Select(repo => repo.singleString).ToList();
             }
             else
@@ -47,14 +46,14 @@ public static class ReviewAPI
 
     public class Repo
     {
-        public string owner { get; set; }
-        public string name { get; set; }
+        public string repositoryOwnerUsername { get; set; }
+        public string repositoryName { get; set; }
 
         public string singleString
         {
             get
             {
-                return owner + "/" + name;
+                return repositoryOwnerUsername + "/" + repositoryName;
             }
         }
     }
