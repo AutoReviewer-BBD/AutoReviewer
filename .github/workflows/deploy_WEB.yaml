@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - 'fe/*'
+      - 'christo/*'
       - 'cicd/*'
 
 env:
