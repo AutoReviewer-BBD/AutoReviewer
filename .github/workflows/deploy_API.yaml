@@ -41,7 +41,7 @@ jobs:
     - name: Dotnet run
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: '8.0'
     
     - name: Publish prod
       run: cd ReviewAPI; dotnet restore; dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../site;
