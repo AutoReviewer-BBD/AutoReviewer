@@ -5,7 +5,7 @@ COPY ReviewAPI/*.csproj ./
 # RUN dotnet restore
  
 # Stage 2: Build the application
-COPY . ./
+COPY ReviewAPI ./
 RUN dotnet publish -c Release -o out
  
 # Stage 3: Runtime image
