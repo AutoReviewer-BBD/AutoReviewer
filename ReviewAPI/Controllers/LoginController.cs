@@ -71,11 +71,11 @@ namespace Api.Controller
         }
 
         private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
-            List<Dictionary<string, string>> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
+            List<string> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
             List<Repository> repositories = repositoryDictionary.Select(
                 repository => new Repository(){
-                   RepositoryName = repository["RepositoryName"] ,
-                   RepositoryOwnerUsername = repository["RepositoryOwnerUsername"]
+                   RepositoryName = repository.Split("/")[1] ,
+                   RepositoryOwnerUsername = repository.Split("/")[0]
                 }
             ).ToList();
 
