@@ -25,9 +25,6 @@ jobs:
         $tag = Get-Date -Format 'yyyy.MM.dd.HHmm'
         Write-Host "tag=$tag" >> $env:GITHUB_OUTPUT
 
-    - name: Debug
-      run: echo ${{ steps.vars.outputs.tag }}
-
     - name: Checkout repository
       uses: actions/checkout@v4
       
