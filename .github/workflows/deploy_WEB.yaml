@@ -82,6 +82,7 @@ jobs:
         ECR_REPOSITORY: autoreview-web
       run: |
         aws ecr batch-delete-image --repository-name autoreview-web --region eu-west-1 --image-ids imageTag=latest
+        cd Web
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
