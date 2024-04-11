@@ -20,16 +20,64 @@ namespace AutoReview
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
+            CreatePrButton.Dispatcher.Invoke(async () => {
+                CreatePrButton.IsEnabled = false;
+            });
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            GitHubAuther.SetAuthLink(AuthButton, More, pfpImage, BranchesComboBox);
+            GitHubAuther.SetAuthLink(AuthButton, More, RepoComboBox);
+           
         }
 
-        private void BranchesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RepoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GitHubAPI.PopulatePRTypeSelection(prTypeComboBox);
+            BranchComboBox.Dispatcher.Invoke(async () => {
+                BranchComboBox.ItemsSource = await GitHubAPI.GetRepoBanches(
+                        RepoComboBox.SelectedItem.ToString().Split("/")[0],
+                        RepoComboBox.SelectedItem.ToString().Split("/")[1]
+                        );
+            });
+        }
+        private void BranchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TypeComboBox.Dispatcher.Invoke(async () => {
+                TypeComboBox.ItemsSource = new List<string> { "Frontend", "Backend", "Infrastructure", "Database" };
+            });
+        }
+
+        private void TypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CreatePrButton.Dispatcher.Invoke(async () => {
+                CreatePrButton.IsEnabled = true;
+            });
+        }
+
+        private async Task Button_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            string message = await GitHubAPI.CreatePR(
+                    RepoComboBox.SelectedItem.ToString().Split("/")[0],
+                    RepoComboBox.SelectedItem.ToString().Split("/")[1],
+                    prNameTextBox.Text,
+                    BranchComboBox.SelectedItem.ToString(),
+                    TypeComboBox.SelectedItem.ToString()
+                );
+
+            prPostedText.Dispatcher.Invoke(() => {
+                prPostedText.Text = message;
+            });
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button_ClickAsync(sender, e);
         }
     }
 }
