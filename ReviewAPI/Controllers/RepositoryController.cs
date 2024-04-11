@@ -19,7 +19,7 @@ namespace Api.Controller
             this.repositoryRepository = repositoryRepository;
         }
 
-        private int GetCurrentUser()
+        private string GetCurrentUser()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
             var githubUserID = claimsIdentity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -36,15 +36,15 @@ namespace Api.Controller
         [ProducesResponseType(200, Type = typeof(Repository))]
         public IActionResult GetUserRepositories()
         {
-            int gitHubUserID = -1;
+            string gitHubUserName = "";
             try {
-                gitHubUserID = GetCurrentUser();
+                gitHubUserName = await GitHubAuther.GetAuthorizedUsername(githubToken);
             }
             catch (Exception e)
             {
-                return BadRequest("Cannot find userId within token");
+                return BadRequest("Cannot find userName with token from github");
             }
-            var repositories = repositoryRepository.GetRepositoriesForUser(gitHubUserID);
+            var repositories = repositoryRepository.GetRepositoriesForUser(gitHubUserName);
 
             return Ok(repositories);
         }      
