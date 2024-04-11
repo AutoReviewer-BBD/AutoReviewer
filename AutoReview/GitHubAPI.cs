@@ -35,66 +35,23 @@ public static class GitHubAPI
 
         using (var client = new HttpClient())
         {
-            HttpClient client = new HttpClient();
-            string owner = "AutoReviewer-BBD";
-            string repo = "AutoReviewer";
-            string url = $"https://api.github.com/repos/{owner}/{repo}/branches";
-
             // Make request to get repositories for the user
             HttpResponseMessage response = await client.GetAsync($"{BaseUrl}repos/{repoOwner}/{repoName}/branches");
 
-            HttpResponseMessage response = await client.GetAsync(url);
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                // Read response content
-                string responseBody = await response.Content.ReadAsStringAsync();
 
-                // Parse JSON response
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-
-                var data = JsonSerializer.Deserialize<List<Repo>>(responseBody, options);
-
-                foreach (var branch in data)
-                {
-                    branches.Add(branch.Name);
-                }
-            }
             var responseContent = await response.Content.ReadAsStringAsync();
             JsonDocument document = JsonDocument.Parse(responseContent);
 
-            branchesComboBox.Dispatcher.Invoke(() =>
-            {
-                branchesComboBox.Items.Clear();
-            });
-
-            
-            List<string> branchList = new List<string>();
             JsonElement root = document.RootElement;
             foreach (JsonElement repoElement in root.EnumerateArray())
             {
                 string name = repoElement.GetProperty("name").GetString();
-                branchList.Add(name);
+                branches.Add(name);
+            }
             }
 
-            branchesComboBox.Dispatcher.Invoke(() =>
-            {
-                branchesComboBox.ItemsSource = branchList;
-                branchesComboBox.SelectedIndex = 0;
-            });
-
-        }
-        catch (HttpRequestException ex)
-        {
-            Trace.WriteLine($"HTTP request exception: {ex.Message}");
-            throw; // Rethrow the exception to propagate it upwards
-        }
-        catch (Exception ex)
-        {
-            Trace.WriteLine($"An error occurred: {ex.Message}");
-            throw;
         }
 
         return branches;
@@ -199,11 +156,8 @@ public static class GitHubAPI
     // Class to represent repository JSON response
     private class Repo
     {
-        prTypeComboBox.Dispatcher.Invoke(() =>
-        {
-            prTypeComboBox.ItemsSource = new List<string> { "Frontend", "Backend", "Database", "Infrastructure", "Maintenance" };
-            prTypeComboBox.SelectedIndex = 0;
-        });
+        public string name;
+        public string owner;
     }
 
     private class PullRequestBody
