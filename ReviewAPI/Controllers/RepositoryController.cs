@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Api.Controller
 {
     [Route("api/[controller]")]
-    [ApiController, Authorize]
+    [ApiController] //, Authorize]
     public class RepositoryController : ControllerBase
     {
         private readonly IRepositoryRepository repositoryRepository;
