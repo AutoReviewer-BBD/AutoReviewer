@@ -1,4 +1,4 @@
-@ReviewAPI_HostAddress = http://localhost:5260
+@ReviewAPI_HostAddress = http://localhost:8080
 
 GET {{ReviewAPI_HostAddress}}/api/user/repos
 Accept: application/json

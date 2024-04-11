@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj": {}
+    "d:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj": {}
   },
   "projects": {
-    "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj": {
+    "d:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
+        "projectUniqueName": "d:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
         "projectName": "AutoReview",
-        "projectPath": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
+        "projectPath": "d:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\AutoReview.csproj",
         "packagesPath": "C:\\Users\\bbdnet3312\\.nuget\\packages\\",
-        "outputPath": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\obj\\",
+        "outputPath": "d:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bbdnet3312\\AppData\\Roaming\\NuGet\\NuGet.Config",
