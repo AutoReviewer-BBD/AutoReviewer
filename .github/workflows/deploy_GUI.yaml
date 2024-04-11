@@ -26,9 +26,7 @@ jobs:
         Write-Host "tag=$tag" >> $env:GITHUB_OUTPUT
 
     - name: Debug
-      env:
-        TAG: ${{ steps.vars.outputs.tag }}
-      run: echo "Tag set to $TAG"
+      run: echo ${{ steps.vars.outputs.tag }}
 
     - name: Checkout repository
       uses: actions/checkout@v4
