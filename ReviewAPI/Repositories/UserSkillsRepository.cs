@@ -13,7 +13,7 @@ namespace Api.Repositories
         }
 
         public ICollection<ProcedureUsersWithSkill> GetUsersWithSkillInRepository(int skillID, int repositoryID, int userID){
-            List<ProcedureUsersWithSkill> queryResult = dataContext.ViewUsersWithSkillInRepository(skillID, repositoryID, userID);
+            var queryResult = dataContext.ViewUsersWithSkillInRepository(skillID, repositoryID, userID);
             return queryResult.ToList();
         }
         public UserSkill AddUserWithSkill(UserSkill userSkill){

@@ -220,9 +220,16 @@ public static class GitHubAPI
                 ICollection<ProcedureUsersWithSkill> usersWithSkill = userSkillsRepository.GetUsersWithSkillInRepository(skillID, repositoryID, gitHubUserID);
                 List<string> reviewers = new List<string>();
 
-                foreach (ProcedureUsersWithSkill entry in usersWithSkill){
+                Console.WriteLine("Getting reviewers");
+
+                foreach (var entry in usersWithSkill){
                     reviewers.Add(entry.GitHubUsername);
+                    Console.WriteLine("Added");
+                    Console.WriteLine(entry.GitHubUsername);
                 }
+
+                Console.WriteLine("Done getting");
+                Console.WriteLine(reviewers.Count);
 
                 if (reviewers.Count != 0){
                     string pullNumber = "";
@@ -262,56 +269,23 @@ public static class GitHubAPI
         }
     }
 
-    public static async Task<string> GetUsernameAsync(string token)
-    {
-        try
-        {
-            HttpClient client = new HttpClient();
-            string url = "https://api.github.com/user";
-
-            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            client.DefaultRequestHeaders.Add("X-GitHub-Api-Version", "2022-11-28");
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception();
-            }
-            string responseContent = await response.Content.ReadAsStringAsync();
-            using (JsonDocument document = JsonDocument.Parse(responseContent))
-            {
-                JsonElement root = document.RootElement;
-                return root.GetProperty("login").GetString();
-            }
-        }
-        catch (HttpRequestException ex)
-        {
-            Trace.WriteLine($"HTTP request exception: {ex.Message}");
-            throw; // Rethrow the exception to propagate it upwards
-        }
-        catch (Exception ex)
-        {
-            Trace.WriteLine($"An error occurred: {ex.Message}");
-            throw;
-        }
-    }
-
     public static async Task AddReviewersToPR(List<string> usernamesToAdd, string repoOwner, string repoName, string pullNumber, string paramAccess)
     {
-        using (HttpClient client = new HttpClient())
+        using (var client = new HttpClient())
         {
             client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + paramAccess);
 
-            Dictionary<string, List<string>> prPayload = new Dictionary<string, List<string>>
+            var prPayload = new Dictionary<string, List<string>>
             {    
                 {"reviewers", usernamesToAdd},
                 {"team_reviewers", []}
             };            
         
-            string jsonPayload = JsonSerializer.Serialize(prPayload);
+            var jsonPayload = JsonSerializer.Serialize(prPayload);
+
+            Console.WriteLine("JSON");
+            Console.WriteLine(jsonPayload);
 
             StringContent content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 

@@ -17,7 +17,7 @@ namespace Api.Repositories
         }
 
         public Skill? GetSkillWithName(string skillname){
-            Skill? queryResult = dataContext.Skills
+            var queryResult = dataContext.Skills
                                 .Where(skill => skill.SkillName == skillname)
                                 .FirstOrDefault();
             return queryResult;

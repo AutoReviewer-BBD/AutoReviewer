@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Api.GitHub;
+using RealConnection.Data;
+using Api.Repositories;
 using Api.Populating;
 
 namespace Api.Controller
@@ -43,11 +45,10 @@ namespace Api.Controller
             )
         {
             IActionResult response = Unauthorized();
-
             string gitHubUsername = await GitHubAuther.GetAuthorizedUsername(accessToken);
             GitHubUser gitHubUser = gitHubUserRepositoy.LoginUser(gitHubUsername);
-            Repository? repository = repositoryRepository.GetRepositoryWithName(repositoryName);
-            Skill? skill = skillRepository.GetSkillWithName(skillName);
+            Repository repository = repositoryRepository.GetRepositoryWithName(repositoryName);
+            Skill skill = skillRepository.GetSkillWithName(skillName);
 
             bool result = await GitHubAPI.CreatePR(
                 repository.RepositoryOwnerUsername,
@@ -65,6 +66,51 @@ namespace Api.Controller
             return response = Ok(new {
                 strResult
             });
+        }
+
+        private string GenerateJSONWebToken(GitHubUser gitHubUser)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secrets["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, gitHubUser.GitHubUserId.ToString()),
+                new Claim("username", gitHubUser.GitHubUsername),
+            };
+
+            var token = new JwtSecurityToken(
+                secrets["Jwt:Issuer"],
+                secrets["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        // private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
+        //     List<> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
+        //     List<Repository> repositories = repositoryDictionary.Select(
+        //         repository => new Repository(){
+        //            RepositoryName = repository.Split("/")[1] ,
+        //            RepositoryOwnerUsername = repository.Split("/")[0]
+        //         }
+        //     ).ToList();
+
+        //     Populator.AddRegistrationsForUser(gitHubUser.GitHubUsername, repositories);
+        // }
+
+        private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
+            List<Dictionary<string, string>> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
+            List<Repository> repositories = repositoryDictionary.Select(
+                repository => new Repository(){
+                   RepositoryName = repository["RepositoryName"] ,
+                   RepositoryOwnerUsername = repository["RepositoryOwnerUsername"]
+                }
+            ).ToList();
+ 
+            Populator.AddRegistrationsForUser(gitHubUser.GitHubUsername, repositories);
         }
     }
 }
