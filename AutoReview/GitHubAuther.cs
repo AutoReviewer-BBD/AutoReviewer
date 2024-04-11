@@ -13,8 +13,8 @@ using Image = System.Windows.Controls.Image;
 
 public static class GitHubAuther
 {
-    static string ClientId = "";
-    static string ClientSecret = ""; // Replace with your actual client secret
+    static string ClientId = "42e94b7bf6e02549006b";
+    static string ClientSecret = "c57b0282454a88f47ac0eae46f48ffcb1eaa984f"; // Replace with your actual client secret
     static string RedirectUri = "http://localhost:3322/login/oauth2/code/github";
 
     static string AuthorizationCode { get; set; }
@@ -66,10 +66,10 @@ public static class GitHubAuther
         });
     }
 
-    static public void SetAuthLink(Button button, TextBlock textBlock, Image image, ComboBox branchesComboBox)
+    static public void SetAuthLink(Button button, TextBlock textBlock, ComboBox RepoComboBox)
     {
         // Construct the authorization URL
-        string authorizationUrl = $"https://github.com/login/oauth/authorize?client_id={ClientId}&scope=user";
+        string authorizationUrl = $"https://github.com/login/oauth/authorize?client_id={ClientId}&scope=user,repo,pull_requests:write,pull_requests:read";
 
         // Set button content
         button.Content = "Authorize";
@@ -102,15 +102,11 @@ public static class GitHubAuther
                     textBlock.Text = "Access token retrieved.";
                 });
 
-
-                textBlock.Dispatcher.Invoke(() =>
+                _ = RepoComboBox.Dispatcher.Invoke(async () =>
                 {
-                    textBlock.Text = $"Logged in as {Username}";
+                    RepoComboBox.ItemsSource = await ReviewAPI.GetUserReposAsync(AccessToken);
                 });
 
-                await SetUserProfileImage(image);
-
-                await GitHubAPI.GetUserRepos(branchesComboBox);
             });
         };
     }

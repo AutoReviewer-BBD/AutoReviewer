@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\bbdnet3312\source\repos\AutoReview\AutoReview\obj\Debug\net8.0-windows\AutoReview_MarkupCompile.cache
@@ -39,6 +40,8 @@ C:\Users\bbdnet3312\source\repos\AutoReviewer\AutoReview\obj\Debug\net8.0-window
 C:\Users\bbdnet3312\source\repos\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.pdb
 C:\Users\bbdnet3312\source\repos\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\AutoReview.genruntimeconfig.cache
 C:\Users\bbdnet3312\source\repos\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\ref\AutoReview.dll
+=======
+>>>>>>> fe/deploy
 D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.exe
 D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.deps.json
 D:\Grad Program\C#\AutoReviewer\AutoReview\bin\Debug\net8.0-windows\AutoReview.runtimeconfig.json

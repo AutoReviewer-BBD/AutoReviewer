@@ -100,7 +100,7 @@ public static class GitHubAPI
         return branches;
     }
 
-    public static async Task CreatePR(string repoOwner, string repoName, string prTitle, string prHead, string prType)
+    public static async Task<string> CreatePR(string repoOwner, string repoName, string prTitle, string prHead, string prType)
     {
         using (var client = new HttpClient())
         {
@@ -154,10 +154,11 @@ public static class GitHubAPI
                 );
 
                 Process.Start(new ProcessStartInfo(doc.RootElement.GetProperty("html_url").ToString()) { UseShellExecute = true });
+                return "Success dawg 😎";
             }
             else
             {
-                Console.WriteLine($"Failed to create pull request for {username}: {response.ReasonPhrase}");
+                return "Somethig got tripped up dawg. Github dont tell us much, so a PR for this branch could be open or youre not authed";
             }
         }
     }

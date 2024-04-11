@@ -4,15 +4,23 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 d:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\
+=======
+D:\Grad Program\C#\AutoReviewer\AutoReview\obj\Debug\net8.0-windows\
+>>>>>>> fe/deploy
 AutoReview
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+<<<<<<< HEAD
 d:\Grad Program\C#\AutoReviewer\AutoReview\App.xaml
+=======
+D:\Grad Program\C#\AutoReviewer\AutoReview\App.xaml
+>>>>>>> fe/deploy
 11407045341
 
-6396272073
+7-1402902069
 198915248976
 MainWindow.xaml;
 
