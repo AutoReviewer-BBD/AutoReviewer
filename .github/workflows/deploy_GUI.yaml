@@ -14,23 +14,15 @@ permissions:
 jobs:
   build:
     permissions: write-all
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
 
-    - name: Set color
-      id: color-selector
-      run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
-    - name: Get color
-      env:
-        SELECTED_COLOR: ${{ steps.color-selector.outputs.SELECTED_COLOR }}
-      run: echo "The selected color is $SELECTED_COLOR"
-
     - name: Set Version Tag
-      id: version
+      id: vars
       run: |
-        echo "tag=$(Get-Date -Format 'yyyy.MM.dd.HHmm')" >> "$GITHUB_OUTPUT"
-        echo "Tag set to $tag"
+        echo "tag=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+        ls
 
     - name: Debug
       env:
@@ -40,21 +32,22 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Setup MSBuild.exe
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      uses: warrenbuckley/Setup-MSBuild@v1
-       
-    - name: Setup NuGet
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-      uses: NuGet/setup-nuget@v1.0.2
-     
-    - name: Restore NuGet Packages
-      run: nuget restore AutoReview.sln
- 
-    - name: Build and Publish Web App
-      run: msbuild AutoReview.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0'  # Adjust the .NET SDK version as needed
+      
+    - name: Build the project
+      run: dotnet build AutoReview/AutoReview.csproj --configuration Release
+
+    - name: Echos
+      run: |
+        ls
+        dir
+        cd AutoReview/obj
+        dir
+        ls
 
     - name: release
       uses: actions/create-release@v1
