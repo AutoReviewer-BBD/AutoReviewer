@@ -53,7 +53,7 @@ jobs:
     - uses: aws-actions/configure-aws-credentials@v4
       id: creds
       with:
-        role-to-assume: ${{ env.AWS_IAM_ROLE_ARN }}
+        role-to-assume: ${{ env.AWS_ASSUME_ROLE }}
         aws-region: ${{ env.AWS_REGION }}
         output-credentials: true
         audience: sts.amazonaws.com
