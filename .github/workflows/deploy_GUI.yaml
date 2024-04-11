@@ -51,7 +51,7 @@ jobs:
       with:
         release_name: Release - ${{ steps.vars.outputs.tag }}
         draft: false
-        tag_name: ${{ steps.vars.outputs.tag }}
+        tag_name: "V2"
         prerelease: false
 
 
