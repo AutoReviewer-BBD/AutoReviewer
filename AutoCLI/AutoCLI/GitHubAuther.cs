@@ -96,7 +96,7 @@ namespace CLI
 
                 return;
             });
-
+            await ReviewAPI.LoginUser(AccessToken);
         }
 
     public class UserResponse

@@ -43,6 +43,48 @@ public static class ReviewAPI
             }
         }
     }
+        public static async Task<string> CreatePR(string accessToken, string repositoryName, string prTitle, string prHead, string prType)
+    {
+        using (var client = new HttpClient())
+        {
+            // Create the request body as JSON
+            var requestBody = new
+            {
+                accessToken,
+                repositoryName,
+                skillName = prType,
+                branchName = prHead,
+                prTitle
+            };
+
+            // Serialize the request body to JSON
+            var requestBodyJson = JsonSerializer.Serialize(requestBody);
+
+            try
+            {
+                // Send POST request to the API endpoint
+                var response = await client.PostAsync($"{baseUrl}/api/CreatePR",
+                    new StringContent(requestBodyJson, System.Text.Encoding.UTF8, "application/json"));
+
+                // Check if the request was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read the response content
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    // Handle the failure scenario
+                    return $"Failed to create PR. Status code: {response.StatusCode}";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions
+                return $"An error occurred: {ex.Message}";
+            }
+        }
+    }
     public static async Task LoginUser(string token)
     {
         using (var client = new HttpClient())
