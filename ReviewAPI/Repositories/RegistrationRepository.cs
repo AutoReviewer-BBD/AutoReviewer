@@ -13,7 +13,7 @@ namespace Api.Repositories
         }
 
         public ICollection<Registration> GetUserRegistrations(int userId){
-            var queryResult = dataContext.Registrations.Where(
+            IQueryable<Registration> queryResult = dataContext.Registrations.Where(
                 registrations => registrations.GitHubUserId == userId
             );
             

@@ -1,4 +1,5 @@
 using Api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using RealConnection.Data;
 using RealConnection.Models;
 
@@ -13,12 +14,12 @@ namespace Api.Repositories
         }
 
         public ICollection<Repository> GetRepositories(){
-            var queryResult = dataContext.Repositories;
+            DbSet<Repository> queryResult = dataContext.Repositories;
             return queryResult.ToList();
         }
 
         public Repository? GetRepositoryWithName(string repositoryName){
-            var queryResult = dataContext.Repositories
+            Repository? queryResult = dataContext.Repositories
                                 .Where(repository => repository.RepositoryName == repositoryName)
                                 .FirstOrDefault();
             return queryResult;
@@ -31,7 +32,7 @@ namespace Api.Repositories
         }
 
         public ICollection<ProcedureViewUsersRepositories> GetRepositoriesForUser(string gitHubUsername){
-            var queryResult = dataContext.GetRepositoriesForUser(gitHubUsername);
+            List<ProcedureViewUsersRepositories> queryResult = dataContext.GetRepositoriesForUser(gitHubUsername);
             return queryResult.ToList();
         }
     }
