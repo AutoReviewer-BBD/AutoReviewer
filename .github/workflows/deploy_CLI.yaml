@@ -57,7 +57,7 @@ jobs:
         cd bin
         ls
         cd Release
-        cd net8.0-windows
+        cd net8.0
         Compress-Archive . out.zip
 
 
