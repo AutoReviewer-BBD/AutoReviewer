@@ -54,7 +54,7 @@ jobs:
         ls
         cd AutoCLI
         ls
-        cd AutoCLI/bin/Release/net8.0-windows
+        cd bin/Release/net8.0-windows
         Compress-Archive . out.zip
 
 
