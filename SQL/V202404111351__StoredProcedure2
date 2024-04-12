@@ -1,0 +1,13 @@
+use AutoReviewerDB;
+go
+
+create procedure ViewUserRepositories 
+	@userID int
+as
+	select r.repositoryID, r.repositoryName, r.repositoryOwnerUsername
+	from GitHubUser as u
+	inner join Registration as reg on reg.gitHubUserID = u.gitHubUserID
+	inner join Repository as r on r.repositoryID = reg.repositoryID
+	where 
+		u.gitHubUserID= @userID;
+go
