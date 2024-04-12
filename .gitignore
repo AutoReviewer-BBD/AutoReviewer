@@ -11,3 +11,6 @@ AutoReview/ReviewAPI/bin/
 AutoReview/ReviewAPI/obj/
 AutoReview/AutoCLI/obj/
 AutoReview/AutoCLI/obj/
+/AutoCli/obj/Debug
+/AutoCli/obj
+/AutoCli/obj
