@@ -35,7 +35,9 @@ jobs:
         dotnet-version: '8.0'  # Adjust the .NET SDK version as needed
       
     - name: Build the project
-      run: dotnet build AutoCLI/AutoCLI/AutoCLI.csproj --configuration Release
+      run: |
+        dotnet build AutoCLI/AutoCLI/AutoCLI.csproj --configuration Release
+        dir
 
     - name: Set up Git Bash
       uses: actions/setup-python@v2
