@@ -7,3 +7,7 @@
 AutoReview/obj/
 .vs
 AutoReview/bin/
+AutoReview/ReviewAPI/bin/
+AutoReview/ReviewAPI/obj/
+AutoReview/AutoCLI/obj/
+AutoReview/AutoCLI/obj/

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoReview", "AutoReview\AutoReview.csproj", "{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCLI", "AutoCLI\AutoCLI.csproj", "{C9433C8B-2A16-4B1E-B945-EF5E6114FCA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9433C8B-2A16-4B1E-B945-EF5E6114FCA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9433C8B-2A16-4B1E-B945-EF5E6114FCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9433C8B-2A16-4B1E-B945-EF5E6114FCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9433C8B-2A16-4B1E-B945-EF5E6114FCA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
