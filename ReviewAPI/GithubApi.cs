@@ -24,7 +24,7 @@ public class GitHubAPI
             {
                 throw new Exception("Response was " + response);
             }
-            var responseContent = await response.Content.ReadAsStringAsync();
+            string responseContent = await response.Content.ReadAsStringAsync();
             using (JsonDocument document = JsonDocument.Parse(responseContent))
             {
                 JsonElement root = document.RootElement;
