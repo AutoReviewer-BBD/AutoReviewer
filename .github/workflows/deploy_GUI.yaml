@@ -58,9 +58,9 @@ jobs:
         TAG: ${{ steps.vars.outputs.tag }}
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        release_name: Release - 3
+        release_name: Release - 4
         draft: false
-        tag_name: "V3"
+        tag_name: "V4"
         prerelease: false
 
 

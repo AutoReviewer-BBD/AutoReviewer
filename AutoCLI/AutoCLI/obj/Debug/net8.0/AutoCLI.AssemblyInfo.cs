@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoCLI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+884056317fcadbef73852d39cd051614b19fe259")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10746f1b565681345732bb328a41c7f5d8a0db6e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoCLI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoCLI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
