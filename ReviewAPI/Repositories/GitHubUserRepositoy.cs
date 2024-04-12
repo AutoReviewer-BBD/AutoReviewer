@@ -26,7 +26,7 @@ namespace Api.Repositories
         }
 
         public GitHubUser LoginUser(string userName){
-            GitHubUser gitHubUser = GetUser(userName);
+            GitHubUser? gitHubUser = GetUser(userName);
 
             if (gitHubUser == null){
                 gitHubUser = AddUser(new GitHubUser(){

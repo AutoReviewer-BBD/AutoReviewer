@@ -10,13 +10,11 @@ namespace RealConnection.Data;
 public partial class AutoReviewerDbContext : DbContext
 {
     public AutoReviewerDbContext()
-    {
-    }
+    {}
 
     public AutoReviewerDbContext(DbContextOptions<AutoReviewerDbContext> options)
         : base(options)
-    {
-    }
+    {}
 
     public virtual DbSet<FlywaySchemaHistory> FlywaySchemaHistories { get; set; }
 
