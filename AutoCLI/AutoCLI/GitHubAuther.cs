@@ -86,7 +86,7 @@ namespace CLI
 
                 // Get access token using the received authorization code
                 AccessToken = await GetAccessTokenAsync();
-                Console.WriteLine(AccessToken);
+                // Console.WriteLine(AccessToken);
 
                 // Get username using the access token
                 //Username = await GetUsernameAsync();

@@ -69,9 +69,9 @@ jobs:
         TAG: ${{ steps.vars.outputs.tag }}
         GITHUB_TOKEN: ${{ github.token }}
       with:
-        release_name: Release CLI - V3
+        release_name: Release CLI - V5
         draft: false
-        tag_name: "CLI-V3"
+        tag_name: "CLI-V5"
         prerelease: false
 
 
