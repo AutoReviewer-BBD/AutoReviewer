@@ -35,7 +35,7 @@ jobs:
         dotnet-version: '8.0'  # Adjust the .NET SDK version as needed
       
     - name: Build the project
-      run: dotnet build AutoCLI/AutoCLI.csproj --configuration Release
+      run: dotnet build AutoCLI/AutoCLI/AutoCLI.csproj --configuration Release
 
     - name: Set up Git Bash
       uses: actions/setup-python@v2
@@ -71,6 +71,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: AutoCLI\bin\Release\net8.0-windows\out.zip
+        asset_path: AutoCLI\AutoCLI\bin\Release\net8.0-windows\out.zip
         asset_name: net8.0-windows.zip
         asset_content_type: application/octet-stream
