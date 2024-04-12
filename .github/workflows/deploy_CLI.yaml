@@ -49,7 +49,10 @@ jobs:
     - name: Zip contents
       shell: powershell
       run: |
-        cd AutoCLI/AutoCLI/bin/Release/net8.0-windows
+        ls
+        cd AutoCLI
+        ls
+        cd AutoCLI/bin/Release/net8.0-windows
         Compress-Archive . out.zip
 
 
