@@ -21,11 +21,11 @@ namespace Api.Controller
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<Skill>))]
-        public IActionResult AddUserWithSkill()
+        public IActionResult GetAllSkills()
         {
-            var skills = skillsRepository.GetAllSkills();
+             ICollection<Skill> skills = skillsRepository.GetAllSkills();
 
             return Ok(skills);
-        }      
+        }
     }
 }

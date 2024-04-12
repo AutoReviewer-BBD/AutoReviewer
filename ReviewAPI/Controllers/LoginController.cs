@@ -7,8 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Api.GitHub;
-using RealConnection.Data;
-using Api.Repositories;
 using Api.Populating;
 
 namespace Api.Controller
@@ -37,7 +35,7 @@ namespace Api.Controller
                 GitHubUser gitHubUser = gitHubUserRepositoy.LoginUser(gitHubUsername);
                 await PerformPopulating(gitHubUser, githubToken);
 
-                var tokenString = GenerateJSONWebToken(gitHubUser);
+                string tokenString = GenerateJSONWebToken(gitHubUser);
 
                 response = Ok(new
                 {
@@ -51,15 +49,15 @@ namespace Api.Controller
 
         private string GenerateJSONWebToken(GitHubUser gitHubUser)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secrets["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secrets["Jwt:Key"]));
+            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            Claim[] claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, gitHubUser.GitHubUserId.ToString()),
                 new Claim("username", gitHubUser.GitHubUsername),
             };
 
-            var token = new JwtSecurityToken(
+            SecurityToken token = new JwtSecurityToken(
                 secrets["Jwt:Issuer"],
                 secrets["Jwt:Issuer"],
                 claims,
@@ -69,18 +67,6 @@ namespace Api.Controller
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-        // private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
-        //     List<> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
-        //     List<Repository> repositories = repositoryDictionary.Select(
-        //         repository => new Repository(){
-        //            RepositoryName = repository.Split("/")[1] ,
-        //            RepositoryOwnerUsername = repository.Split("/")[0]
-        //         }
-        //     ).ToList();
-
-        //     Populator.AddRegistrationsForUser(gitHubUser.GitHubUsername, repositories);
-        // }
 
         private async Task PerformPopulating(GitHubUser gitHubUser, string githubToken){
             List<Dictionary<string, string>> repositoryDictionary = await GitHubAPI.GetUserRepositoriesEndPoint(githubToken);
