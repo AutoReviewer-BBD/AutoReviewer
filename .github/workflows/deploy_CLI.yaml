@@ -71,7 +71,7 @@ jobs:
       with:
         release_name: Release - 3
         draft: false
-        tag_name: "CLI V1"
+        tag_name: "CLI-V1"
         prerelease: false
 
 
