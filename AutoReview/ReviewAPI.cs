@@ -14,10 +14,11 @@ public static class ReviewAPI
     {
         using (var client = new HttpClient())
         {
+            client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             // Make request to get repositories for the user
-            HttpResponseMessage response = await client.GetAsync($"{ baseUrl }/api/user/repos");
+            HttpResponseMessage response = await client.GetAsync($"{ baseUrl }/api/Repository");
 
             if (response.IsSuccessStatusCode)
             {
@@ -31,13 +32,13 @@ public static class ReviewAPI
                 };
 
                 var data = JsonSerializer.Deserialize<List<Repo>>(responseBody, options);
-
+                
                 return data.Select(repo => repo.singleString).ToList();
             }
             else
             {
                 Console.WriteLine($"Failed to retrieve repositories: {response.ReasonPhrase}");
-                return new List<string> { "a" };
+                return new List<string> { "AutoReviewer-BBD/AutoReviewer" };
 
             }
         }
@@ -45,14 +46,14 @@ public static class ReviewAPI
 
     public class Repo
     {
-        public string owner { get; set; }
-        public string name { get; set; }
+        public string repositoryOwnerUsername { get; set; }
+        public string repositoryName { get; set; }
 
         public string singleString
         {
             get
             {
-                return owner + "/" + name;
+                return repositoryOwnerUsername + "/" + repositoryName;
             }
         }
     }

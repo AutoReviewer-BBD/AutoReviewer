@@ -3,35 +3,12 @@
   "WorkspaceRootPath": "D:\\Grad Program\\C#\\AutoReviewer\\",
   "Documents": [
     {
-<<<<<<< HEAD
-      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\githubauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\githubauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-=======
->>>>>>> fe/deploy
       "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-<<<<<<< HEAD
-      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-=======
-      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\githubauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\githubauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
->>>>>>> fe/deploy
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\githubapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\githubapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-<<<<<<< HEAD
-=======
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|d:\\grad program\\c#\\autoreviewer\\autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FB2CB7-99BA-445C-BF8D-E04F67A93683}|AutoReview\\AutoReview.csproj|solutionrelative:autoreview\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
->>>>>>> fe/deploy
     }
   ],
   "DocumentGroupContainers": [
@@ -41,54 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 3,
-=======
-              "DocumentIndex": 2,
->>>>>>> fe/deploy
-              "Title": "GitHubAPI.cs",
-              "DocumentMoniker": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\GitHubAPI.cs",
-              "RelativeDocumentMoniker": "AutoReview\\GitHubAPI.cs",
-              "ToolTip": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\GitHubAPI.cs",
-              "RelativeToolTip": "AutoReview\\GitHubAPI.cs",
-<<<<<<< HEAD
-              "ViewState": "AQIAAEcAAAAAAAAAAAAIwFcAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:16:43.99Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-=======
-              "ViewState": "AQIAACAAAAAAAAAAAAAgwCIAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T14:16:43.99Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
->>>>>>> fe/deploy
-              "Title": "GitHubAuther.cs",
-              "DocumentMoniker": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\GitHubAuther.cs",
-              "RelativeDocumentMoniker": "AutoReview\\GitHubAuther.cs",
-              "ToolTip": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\GitHubAuther.cs",
-              "RelativeToolTip": "AutoReview\\GitHubAuther.cs",
-<<<<<<< HEAD
-              "ViewState": "AQIAAEwAAAAAAAAAAAAWwF8AAAArAAAA",
-=======
-              "ViewState": "AQIAAEkAAAAAAAAAAAAwwGYAAAAUAAAA",
->>>>>>> fe/deploy
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T08:27:39.335Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -98,28 +29,20 @@
               "ToolTip": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\MainWindow.xaml",
               "RelativeToolTip": "AutoReview\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-04-02T06:36:13.518Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T06:36:13.518Z"
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 2,
-=======
-              "DocumentIndex": 3,
->>>>>>> fe/deploy
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AutoReview\\MainWindow.xaml.cs",
               "ToolTip": "D:\\Grad Program\\C#\\AutoReviewer\\AutoReview\\MainWindow.xaml.cs",
               "RelativeToolTip": "AutoReview\\MainWindow.xaml.cs",
-<<<<<<< HEAD
-              "ViewState": "AQIAABEAAAAAAAAAAAApwBcAAAAAAAAA",
-=======
-              "ViewState": "AQIAAAwAAAAAAAAAAAAcwB4AAAAkAAAA",
->>>>>>> fe/deploy
+              "ViewState": "AQIAABkAAAAAAAAAAAAtwCUAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:44:52.519Z"
+              "WhenOpened": "2024-04-02T06:44:52.519Z",
+              "EditorCaption": ""
             }
           ]
         }

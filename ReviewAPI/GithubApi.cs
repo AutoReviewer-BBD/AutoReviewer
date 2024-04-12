@@ -1,6 +1,9 @@
 using System.Diagnostics;
 using System.Text.Json;
 
+namespace ChristoGitHubApi
+{
+
 public class GitHubAPI
 {
 
@@ -39,5 +42,7 @@ public class GitHubAPI
             throw;
         }
     }
+
+}
 
 }

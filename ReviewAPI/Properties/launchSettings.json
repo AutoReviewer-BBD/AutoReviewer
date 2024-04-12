@@ -37,5 +37,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-  }
+  },
+  "Jwt": {
+    "Key": "YourSecretKeyForAuthenticationOfApplication",
+    "Issuer": "GitHub.com",
+    "Audience": "GitHub.com"
+  },
 }

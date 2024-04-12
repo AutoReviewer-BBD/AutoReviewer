@@ -1,0 +1,15 @@
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.AssemblyInfoInputs.cache
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.AssemblyInfo.cs
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.csproj.CoreCompileInputs.cache
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.sourcelink.json
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\bin\Debug\net8.0\AutoCLI.exe
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\bin\Debug\net8.0\AutoCLI.deps.json
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\bin\Debug\net8.0\AutoCLI.runtimeconfig.json
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\bin\Debug\net8.0\AutoCLI.dll
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\bin\Debug\net8.0\AutoCLI.pdb
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.dll
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\refint\AutoCLI.dll
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.pdb
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\AutoCLI.genruntimeconfig.cache
+D:\Grad Program\C#\AutoReviewer\AutoCLI\AutoCLI\obj\Debug\net8.0\ref\AutoCLI.dll
