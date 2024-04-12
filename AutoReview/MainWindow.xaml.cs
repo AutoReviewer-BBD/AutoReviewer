@@ -44,7 +44,7 @@ namespace AutoReview
         private void BranchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             TypeComboBox.Dispatcher.Invoke(async () => {
-                TypeComboBox.ItemsSource = new List<string> { "Frontend", "Backend", "Infrastructure", "Database" };
+                TypeComboBox.ItemsSource = new List<string> { "Backend", "Database", "Frontend", "Testing", "UI" };
             });
         }
 
