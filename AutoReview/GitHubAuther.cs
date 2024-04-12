@@ -97,6 +97,7 @@ public static class GitHubAuther
                 // Get username using the access token
                 Username = await GetUsernameAsync();
 
+                await ReviewAPI.LoginUser(AccessToken);
                 textBlock.Dispatcher.Invoke(() =>
                 {
                     textBlock.Text = "Access token retrieved.";
@@ -108,6 +109,7 @@ public static class GitHubAuther
                 });
 
             });
+
         };
     }
 
