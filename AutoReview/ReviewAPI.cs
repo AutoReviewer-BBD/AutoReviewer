@@ -43,7 +43,29 @@ public static class ReviewAPI
             }
         }
     }
+    public static async Task LoginUser(string token)
+    {
+        using (var client = new HttpClient())
+        {
+            client.DefaultRequestHeaders.Add("User-Agent", "GitHubAPI"); // GitHub API requires User-Agent header
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
+            // Make request to get repositories for the user
+            HttpResponseMessage response = await client.GetAsync($"http://autoreviewer.eu-west-1.elasticbeanstalk.com/api/Login?githubToken={token}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Read response content
+                string responseBody = await response.Content.ReadAsStringAsync();
+
+       
+            }
+            else
+            {
+                Console.WriteLine($"Failed to Login");
+            }
+        }
+    }
     public class Repo
     {
         public string repositoryOwnerUsername { get; set; }
